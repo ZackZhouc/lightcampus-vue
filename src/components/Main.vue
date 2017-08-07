@@ -23,25 +23,25 @@
             <el-row>
               <el-col :span="6">
                 <div >
-                  <el-row><img :src="urlEwm" class="icon"/></el-row>
+                  <el-row><img :src="iconErweima" class="icon"/></el-row>
                   <el-row><span style="color:#FFFFFF;">扫一扫</span></el-row>
                 </div>
               </el-col>
               <el-col :span="6">
                 <div>
-                  <el-row><img :src="pay" class="icon"/></el-row>
+                  <el-row><img :src="iconPay" class="icon"/></el-row>
                   <el-row><span style="color:#FFFFFF;">付款</span></el-row>
                 </div>
               </el-col>
               <el-col :span="6">
                 <div>
-                  <el-row><img :src="home" class="icon"/></el-row>
+                  <el-row><img :src="iconHome" class="icon"/></el-row>
                   <el-row><span style="color:#FFFFFF;">寝室</span></el-row>
                 </div>
               </el-col>
               <el-col :span="6">
                 <div>
-                  <el-row><img :src="setting" class="icon"/></el-row>
+                  <el-row><img :src="iconSetting" class="icon"/></el-row>
                   <el-row><span style="color:#FFFFFF;">设置</span></el-row>
                 </div>
               </el-col>
@@ -50,7 +50,35 @@
         </el-col>
       </el-row>
     </div>
+    <div class="body">
+      
+    </div>
+    <div class="footer">
+      <el-row class="footer-1">
+        <el-col :span="6">
+          <div >
+            <el-row><img :src="iconErweima" class="rooter-icon"/></el-row>
+          </div>
+        </el-col>
+        <el-col :span="6">
+          <div>
+            <el-row><img :src="iconPay" class="rooter-icon"/></el-row>
+          </div>
+        </el-col>
+        <el-col :span="6">
+          <div>
+            <el-row><img :src="iconHome" class="rooter-icon"/></el-row>
+          </div>
+        </el-col>
+        <el-col :span="6">
+          <div>
+            <el-row><img :src="iconSetting" class="rooter-icon"/></el-row>
+          </div>
+        </el-col>
+      </el-row>
+    </div>
   </div>
+
 </template>
 
 <style scoped>
@@ -68,20 +96,41 @@
     width: 50px;
     margin-bottom: 0px;
   }
+  .footer {
+    width: 100%;
+    height: 50px;
+    position: fixed;
+    bottom: 0px;
+  }
+  .rooter-icon {
+    width: 20px;
+  }
+  .body {
+
+  }
+  .footer-1 {
+    width: 100%;
+    position: absolute;
+    bottom: 0px;
+  }
 </style>
 <script>
-  import erweima from '../../static/icon/erweima.png'
-  import pay from '../../static/icon/pay.png'
-  import home from '../../static/icon/home.png'
-  import setting from '../../static/icon/setting.png'
+  import iconErweima from '../../static/icon/erweima.png'
+  import iconPay from '../../static/icon/pay.png'
+  import iconHome from '../../static/icon/home.png'
+  import iconSetting from '../../static/icon/setting.png'
+  import HomeComp from './body/home.vue'
   export default {
     data () {
       return {
-        urlEwm: erweima,
-        pay: pay,
-        home: home,
-        setting: setting
+        iconErweima: iconErweima,
+        iconPay: iconPay,
+        iconHome: iconHome,
+        iconSetting: iconSetting
       }
+    },
+    component: {
+      HomeComp
     }
   }
 </script>
