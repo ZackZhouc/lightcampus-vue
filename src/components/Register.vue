@@ -21,7 +21,7 @@
         <el-input v-if="showPhone" v-model="phone" placeholder="请输入您的手机号" class="input" @input="handleInput"></el-input>
       </el-col>
     </el-row>
-    <el-row v-if="showInputCode" :gutter="20">
+    <el-row v-if="showInputCode" :gutter="2">
       <el-col :xs="22" :sm="22" :md="22" :lg="22">
         <el-input  v-model="code" placeholder="请输入短信中的验证码" class="input"></el-input>
       </el-col>
@@ -65,6 +65,9 @@
 <style scoped>
  .step, .input, .button, .accept {
     margin-top: 16px;
+  }
+  .el-message-box {
+    width: 300px;
   }
 </style>
 <script>
@@ -150,7 +153,7 @@
         } else {
           this.$axios({
             method: 'post',
-            url: that.url.base + that.url.findLoginByPhone + that.phone
+            url: that.url.base + that.url.findLoginByPhone + '/' + that.phone
           })
           .then(function (response) {
             // 请求成功
@@ -159,7 +162,7 @@
               if (response.data.data === null) {
                 that.$axios({
                   method: 'post',
-                  url: that.url.base + that.url.sendSms + that.phone
+                  url: that.url.base + that.url.sendSms + '/' + that.phone
                 })
                 .then(function (response) {
                   if (response.data.status === 'success' && response.data.data !== null) {
@@ -189,9 +192,16 @@
       },
       checkCode () {
         let that = this
+        if (this.code.length === 0) {
+          this.$message({
+            message: '验证码不能为空',
+            type: 'info'
+          })
+          return
+        }
         this.$axios({
           method: 'post',
-          url: that.url.base + that.url.checkCode + that.phone
+          url: that.url.base + that.url.checkCode + '/' + that.phone
         })
         .then(function (response) {
           if (response.data.status === 'success' && response.data.data !== null) {
@@ -262,29 +272,17 @@
         }
         this.$axios({
           method: 'post',
-          url: that.url.base + that.url.register + that.phone + '/' + that.password
+          url: that.url.base + that.url.register + '/' + that.phone + '/' + that.password
         })
         .then(function (response) {
           if (response.data.status === 'success' && response.data.data !== null) {
-            that.$alert('注册成功', '提示', {
-              confirmButtonText: '确定',
-              callback: action => {
-                that.phone = ''
-                that.accept = true
-                that.disabled = true
-                that.showTime = false
-                that.showInputCode = false
-                that.showPassword = false
-                that.showSend = true
-                that.showRegister = false
-                that.showPhone = true
-                that.time = 120
-                that.step = 0
-                that.code = ''
-                that.password = ''
-                that.checkPassword = ''
-              }
+            that.$router.push({name: 'login', params: { phone: that.phone }})
+          } else {
+            that.$message({
+              message: '网络故障',
+              type: 'error'
             })
+            return
           }
         })
       }

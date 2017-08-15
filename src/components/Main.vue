@@ -22,7 +22,7 @@
           <div class="top-1">
             <el-row>
               <el-col :span="6">
-                <div >
+                <div>
                   <el-row><img :src="iconErweima" class="icon"/></el-row>
                   <el-row><span style="color:#FFFFFF;">扫一扫</span></el-row>
                 </div>
@@ -34,7 +34,7 @@
                 </div>
               </el-col>
               <el-col :span="6">
-                <div>
+                <div @click="jumper('home')">
                   <el-row><img :src="iconHome" class="icon"/></el-row>
                   <el-row><span style="color:#FFFFFF;">寝室</span></el-row>
                 </div>
@@ -51,7 +51,7 @@
       </el-row>
     </div>
     <div class="body">
-      
+
     </div>
     <div class="footer">
       <el-row class="footer-1">
@@ -131,6 +131,16 @@
     },
     component: {
       HomeComp
+    },
+    methods: {
+      jumper (address) {
+        // 跳转时 未提交个人信息的自动跳转值信息录入页面
+        if (typeof sessionStorage.name === 'undefined' || sessionStorage.name.length === 0) {
+          this.$router.push({name: 'userInfo'})
+        } else {
+          this.$router.push({name: address})
+        }
+      }
     }
   }
 </script>
